@@ -1,0 +1,33 @@
+{
+    "name": "mcp-infer",
+    "version": "0.0.0",
+    "description": "Infer MCP tool input schemas from TypeScript types and JSDoc",
+    "license": "MIT",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "typecheck": "tsc --noEmit",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "example:server": "tsx examples/server.ts",
+        "example:client": "tsx examples/client.ts"
+    },
+    "peerDependencies": {
+        "typescript": ">=5.0"
+    },
+    "devDependencies": {
+        "@modelcontextprotocol/server": "^2.3.0",
+        "@types/node": "^24.0.0",
+        "tsx": "^4.20.0",
+        "typescript": "^5.9.0",
+        "vitest": "^3.2.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}
