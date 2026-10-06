@@ -1,0 +1,34 @@
+name: Bug report
+description: Something is inferred incorrectly or fails unexpectedly
+labels: [bug]
+body:
+    - type: textarea
+      id: source
+      attributes:
+          label: Tool source
+          description: The smallest tool function or type that reproduces the problem.
+          render: ts
+      validations:
+          required: true
+    - type: textarea
+      id: expected
+      attributes:
+          label: Expected result
+          description: The schema or behavior you expected.
+      validations:
+          required: true
+    - type: textarea
+      id: actual
+      attributes:
+          label: Actual result
+          description: The schema, error message, or behavior you got.
+      validations:
+          required: true
+    - type: input
+      id: versions
+      attributes:
+          label: Versions
+          description: mcp-infer package and version, TypeScript version, Node version, OS.
+          placeholder: '@mcp-infer/core 0.1.0, TypeScript 5.9, Node 22, Windows 11'
+      validations:
+          required: true

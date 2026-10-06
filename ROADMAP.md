@@ -76,7 +76,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 - [ ] CI matrix: build, typecheck, format check, and tests on ubuntu, macos, and windows (workflow written; green on GitHub pending; lint pending)
 - [x] Changesets configured; `pnpm changeset` required for user-facing changes
 - [ ] `README.md` with the one-sentence pitch, a 30-second example, and status badges
-- [ ] `CONTRIBUTING.md`, `AGENTS.md`, `LICENSE` (MIT), issue and PR templates
+- [x] `CONTRIBUTING.md`, `AGENTS.md`, `LICENSE` (MIT), issue and PR templates, plus `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CODEOWNERS`, Dependabot
 - [ ] `docs/landscape.md`: what xmcp, mcp-gen, typia, mcp-framework, and FastMCP do, verified from their source and docs
 
 **Done when:** a fresh clone runs `pnpm install && pnpm test` green on all three OSes in CI.
