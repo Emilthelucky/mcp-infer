@@ -1,0 +1,7 @@
+#!/bin/sh
+# Rejects AI attribution in commit messages; commits are authored by the maintainer only (see AGENTS.md).
+
+if grep -qiE '^co-authored-by:.*(claude|anthropic|copilot|cursor|codex|openai|chatgpt|gemini|devin)|generated (with|by) .*(claude|copilot|cursor|codex|chatgpt|gemini|ai\b)' "$1"; then
+    echo "commit-msg: remove AI attribution lines from the commit message (see AGENTS.md, Commits and pull requests)." >&2
+    exit 1
+fi

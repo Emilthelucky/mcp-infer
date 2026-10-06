@@ -1,0 +1,2 @@
+# Normalize to LF on every OS so hooks run under sh and Prettier sees the same bytes everywhere.
+* text=auto eol=lf
