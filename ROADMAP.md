@@ -10,19 +10,19 @@ This document is the plan from prototype to 1.0. Each phase ends with a tagged r
 
 mcp-infer is not another MCP framework. It is the inference layer that frameworks and plain SDK users can share.
 
-|                                                      | mcp-infer (goal) | xmcp                 | mcp-gen         | typia                  |
-| ---------------------------------------------------- | ---------------- | -------------------- | --------------- | ---------------------- |
-| Works with the official SDK directly                 | Yes              | No, xmcp only        | Own HTTP server | Yes, with its compiler |
-| Bundler                                              | Any (unplugin)   | Rspack only          | None            | `ttsc` compiler        |
-| Input schema from types                              | Yes              | Yes (`experimental`) | Yes             | Yes                    |
-| Output schema from return type                       | Yes              | No                   | Partial         | Yes                    |
-| JSDoc constraints (`@minimum`, `@format`)            | Yes              | Yes                  | No              | Yes                    |
-| Annotations from JSDoc (`@readOnly`, `@destructive`) | Yes              | No                   | No              | No                     |
-| Caching hints (MCP 2026-07-28)                       | Yes              | No                   | No              | No                     |
-| Plain functions, no classes or decorators            | Yes              | Yes                  | Yes             | No, class-based        |
-| Maintained                                           | Yes              | Yes                  | Inactive        | Yes                    |
+|                                                      | mcp-infer (goal) | xmcp                             | mcp-gen         | typia                  |
+| ---------------------------------------------------- | ---------------- | -------------------------------- | --------------- | ---------------------- |
+| Works with the official SDK directly                 | Yes              | No, xmcp only                    | Own HTTP server | Yes, with its compiler |
+| Bundler                                              | Any (unplugin)   | Rspack only                      | None            | `ttsc` compiler        |
+| Input schema from types                              | Yes              | Yes (`experimental`, unreleased) | Yes             | Yes                    |
+| Output schema from return type                       | Yes              | No                               | Not verified    | Yes                    |
+| JSDoc constraints (`@minimum`, `@format`)            | Yes              | Yes                              | Not verified    | Not verified           |
+| Annotations from JSDoc (`@readOnly`, `@destructive`) | Yes              | No                               | Not verified    | Not verified           |
+| Caching hints (MCP 2026-07-28)                       | Yes              | No                               | No              | Not verified           |
+| Plain functions, no classes or decorators            | Yes              | Yes                              | Yes             | No, class-based        |
+| Maintained                                           | Yes              | Yes                              | Inactive        | Yes                    |
 
-The table is a claim to be proven: phase 6 turns it into a reproducible comparison.
+The mcp-infer column is the goal, not the current state. Competitor cells come from [docs/landscape.md](docs/landscape.md); phase 6 turns the whole table into a reproducible comparison.
 
 ## Principles
 
@@ -74,12 +74,12 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 - [x] Convert to a pnpm + Turborepo monorepo with the structure above, starting with `packages/core` (`packages/sdk` arrives in phase 3)
 - [x] Move the current prototype into `packages/core` without changing behavior; keep all tests green
 - [x] CI matrix: build, typecheck, format check, and tests on ubuntu, macos, and windows (green in 57s)
-- [ ] ESLint in CI
+- [x] ESLint in CI (flat config, `typescript-eslint` recommended)
 - [x] Decide TypeScript 7 support: depend on TypeScript 6 until the 7.1 API is stable ([ADR 0001](docs/decisions/0001-typescript-7.md))
 - [x] Changesets configured; `pnpm changeset` required for user-facing changes
-- [ ] `README.md` with the one-sentence pitch, a 30-second example, and status badges
+- [x] `README.md` with the one-sentence pitch, a 30-second example, and status badges
 - [x] `CONTRIBUTING.md`, `AGENTS.md`, `LICENSE` (MIT), issue and PR templates, plus `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CODEOWNERS`, Dependabot
-- [ ] `docs/landscape.md`: what xmcp, mcp-gen, typia, mcp-framework, and FastMCP do, verified from their source and docs
+- [x] [`docs/landscape.md`](docs/landscape.md): what xmcp, mcp-gen, typia, mcp-framework, and FastMCP do, verified from their source and docs
 
 **Done when:** a fresh clone runs `pnpm install && pnpm test` green on all three OSes in CI.
 
