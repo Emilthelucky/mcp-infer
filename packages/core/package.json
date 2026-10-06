@@ -23,8 +23,8 @@
         "typecheck": "tsc --noEmit",
         "test": "vitest run"
     },
-    "peerDependencies": {
-        "typescript": ">=5.0"
+    "dependencies": {
+        "typescript": "~6.0.3"
     },
     "engines": {
         "node": ">=20"

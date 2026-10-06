@@ -1,5 +1,4 @@
-import ts from 'typescript';
-
+import { assertCompilerApi, ts } from './compiler.js';
 import { InferError, InferErrorCode } from './errors.js';
 import { isPlainObject, objectToJsonSchema } from './schema.js';
 import type { InferredTool } from './types.js';
@@ -17,6 +16,7 @@ import type { InferredTool } from './types.js';
  * @throws {InferError} when the file cannot be loaded or its types cannot be expressed as JSON Schema.
  */
 export function inferTool(filePath: string): InferredTool {
+    assertCompilerApi();
     const program = ts.createProgram([filePath], { strict: true, noEmit: true });
     const checker = program.getTypeChecker();
 

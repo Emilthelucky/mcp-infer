@@ -1,5 +1,4 @@
-import ts from 'typescript';
-
+import { ts } from './compiler.js';
 import { InferError, InferErrorCode } from './errors.js';
 import type { JsonSchema, ObjectJsonSchema } from './types.js';
 

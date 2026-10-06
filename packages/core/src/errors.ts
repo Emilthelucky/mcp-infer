@@ -9,7 +9,9 @@ export enum InferErrorCode {
     /** The handler's first parameter is not an object type */
     InvalidInput = 'INVALID_INPUT',
     /** A type has no JSON Schema equivalent */
-    UnsupportedType = 'UNSUPPORTED_TYPE'
+    UnsupportedType = 'UNSUPPORTED_TYPE',
+    /** The resolved TypeScript package does not expose the compiler API */
+    CompilerUnavailable = 'COMPILER_UNAVAILABLE'
 }
 
 /**

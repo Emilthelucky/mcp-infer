@@ -73,7 +73,9 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 
 - [x] Convert to a pnpm + Turborepo monorepo with the structure above, starting with `packages/core` (`packages/sdk` arrives in phase 3)
 - [x] Move the current prototype into `packages/core` without changing behavior; keep all tests green
-- [ ] CI matrix: build, typecheck, format check, and tests on ubuntu, macos, and windows (workflow written; green on GitHub pending; lint pending)
+- [x] CI matrix: build, typecheck, format check, and tests on ubuntu, macos, and windows (green in 57s)
+- [ ] ESLint in CI
+- [x] Decide TypeScript 7 support: depend on TypeScript 6 until the 7.1 API is stable ([ADR 0001](docs/decisions/0001-typescript-7.md))
 - [x] Changesets configured; `pnpm changeset` required for user-facing changes
 - [ ] `README.md` with the one-sentence pitch, a 30-second example, and status badges
 - [x] `CONTRIBUTING.md`, `AGENTS.md`, `LICENSE` (MIT), issue and PR templates, plus `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CODEOWNERS`, Dependabot
@@ -95,6 +97,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 
 - [ ] Schema IR: a small internal type model, independent of JSON Schema and Zod, so emitters stay simple
 - [ ] One shared `ts.Program` for all tools, with incremental updates (target: < 10 ms per warm rebuild for 50 tools)
+- [ ] TypeScript 7.1 backend behind `compiler.ts` once its API is stable, benchmarked against the TypeScript 6 backend ([ADR 0001](docs/decisions/0001-typescript-7.md))
 - [ ] Type coverage, each with fixtures and tests:
     - primitives, string/number/boolean literals, `enum`, literal unions → `enum`, `boolean`
     - arrays, readonly arrays, tuples
