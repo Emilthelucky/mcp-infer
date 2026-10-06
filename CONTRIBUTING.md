@@ -19,7 +19,7 @@ pnpm test
 1. For anything larger than a small fix, open an issue first so the approach can be agreed on.
 2. Keep the PR focused on one change.
 3. Add a test that fails without your change.
-4. Run `pnpm build`, `pnpm typecheck`, `pnpm test`, and `pnpm format:check`.
+4. Run `pnpm build`, `pnpm typecheck`, `pnpm test`, `pnpm lint`, and `pnpm format:check`.
 5. Add a changeset with `pnpm changeset` if a published package changes behavior.
 
 CI runs on Linux, macOS, and Windows. Avoid assumptions about path separators and line endings.

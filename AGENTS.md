@@ -21,11 +21,12 @@ pnpm install
 pnpm build          # turbo: build all packages
 pnpm typecheck
 pnpm test
+pnpm lint
 pnpm format:check
 pnpm --filter @mcp-infer/example-basic client   # end-to-end example
 ```
 
-Run `pnpm build`, `pnpm typecheck`, `pnpm test`, and `pnpm format:check` before handing work back.
+Run `pnpm build`, `pnpm typecheck`, `pnpm test`, `pnpm lint`, and `pnpm format:check` before handing work back.
 
 ## Design rules
 
