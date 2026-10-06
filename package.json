@@ -1,34 +1,34 @@
 {
-    "name": "mcp-infer",
-    "version": "0.0.0",
-    "description": "Infer MCP tool input schemas from TypeScript types and JSDoc",
-    "license": "MIT",
+    "name": "mcp-infer-monorepo",
+    "private": true,
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "prepare": "git config core.hooksPath .githooks",
-        "build": "tsc",
-        "typecheck": "tsc --noEmit",
-        "test": "vitest run",
-        "test:watch": "vitest",
-        "example:server": "tsx examples/server.ts",
-        "example:client": "tsx examples/client.ts"
-    },
-    "peerDependencies": {
-        "typescript": ">=5.0"
-    },
-    "devDependencies": {
-        "@modelcontextprotocol/server": "^2.3.0",
-        "@types/node": "^24.0.0",
-        "tsx": "^4.20.0",
-        "typescript": "^5.9.0",
-        "vitest": "^3.2.0"
-    },
+    "packageManager": "pnpm@10.8.1",
     "engines": {
         "node": ">=20"
+    },
+    "scripts": {
+        "prepare": "git config core.hooksPath .githooks",
+        "build": "turbo run build",
+        "typecheck": "turbo run typecheck",
+        "test": "turbo run test",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "changeset": "changeset",
+        "version-packages": "changeset version",
+        "release": "turbo run build --filter=./packages/* && changeset publish"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild"
+        ]
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.29.0",
+        "@types/node": "^22.0.0",
+        "prettier": "^3.6.0",
+        "tsx": "^4.20.0",
+        "turbo": "^2.5.0",
+        "typescript": "^5.9.0",
+        "vitest": "^3.2.0"
     }
 }

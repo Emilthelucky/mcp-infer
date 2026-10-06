@@ -11,7 +11,7 @@ import type { CallToolResult } from '@modelcontextprotocol/server';
 import { fromJsonSchema, McpServer } from '@modelcontextprotocol/server';
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
 
-import { inferTool } from '../src/index.js';
+import { inferTool } from '@mcp-infer/core';
 
 type ToolHandler = (input: unknown) => unknown;
 

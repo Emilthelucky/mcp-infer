@@ -1,0 +1,14 @@
+{
+    "name": "@mcp-infer/example-basic",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "start": "tsx server.ts",
+        "client": "tsx client.ts",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@mcp-infer/core": "workspace:*",
+        "@modelcontextprotocol/server": "^2.3.0"
+    }
+}

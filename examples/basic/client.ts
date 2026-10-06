@@ -4,6 +4,7 @@
  */
 import { spawn } from 'node:child_process';
 import { createInterface } from 'node:readline';
+import { fileURLToPath } from 'node:url';
 
 const calls = [
     { title: 'Write docs', priority: 'high', assignees: ['emil'], due: { day: 1, month: 1 } },
@@ -11,7 +12,11 @@ const calls = [
     { title: 'Write docs', due: { day: 1, month: 1 } }
 ];
 
-const server = spawn('npx tsx examples/server.ts', { shell: true, stdio: ['pipe', 'pipe', 'inherit'] });
+const server = spawn('npx tsx server.ts', {
+    cwd: fileURLToPath(new URL('.', import.meta.url)),
+    shell: true,
+    stdio: ['pipe', 'pipe', 'inherit']
+});
 const pending = new Set(calls.map((_, index) => index + 1));
 
 function send(message: object): void {

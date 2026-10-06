@@ -8,20 +8,24 @@ mcp-infer infers MCP tool definitions (input and output schemas, descriptions, c
 
 ## Repository basics
 
-- Node 20 or later. TypeScript strict mode.
-- `src/` holds the library, `test/` the tests and fixtures, `examples/` runnable servers.
-- The target layout is a pnpm + Turborepo monorepo (see `ROADMAP.md`, phase 0). Until the migration lands, use npm scripts from `package.json`.
+- Node 20 or later, pnpm (version pinned in `packageManager`). TypeScript strict mode.
+- pnpm + Turborepo monorepo:
+    - `packages/core`: `@mcp-infer/core`, the inference engine (`src/`, tests and fixtures in `test/`)
+    - `examples/*`: private, runnable example servers
+- Shared compiler options live in `tsconfig.base.json`; each package extends it.
 
 ## Commands
 
 ```bash
-npm install
-npm test            # vitest
-npm run typecheck   # tsc --noEmit
-npm run example:client
+pnpm install
+pnpm build          # turbo: build all packages
+pnpm typecheck
+pnpm test
+pnpm format:check
+pnpm --filter @mcp-infer/example-basic client   # end-to-end example
 ```
 
-Run `npm run typecheck` and `npm test` before handing work back.
+Run `pnpm build`, `pnpm typecheck`, `pnpm test`, and `pnpm format:check` before handing work back.
 
 ## Design rules
 
@@ -53,3 +57,7 @@ Run `npm run typecheck` and `npm test` before handing work back.
 - Keep PRs focused on one change. Leave unrelated cleanups for a follow-up.
 - Push work the same day it is ready; avoid long-lived local branches.
 - Do not push, open PRs, or publish packages unless the maintainer asks.
+
+## Tooling versions
+
+Tool behavior can differ from what an agent remembers. Before changing Turborepo, pnpm, or Changesets configuration, check the installed version and its bundled docs (for Turborepo: `node_modules/turbo/docs/`). Turborepo's automatic `AGENTS.md` block is disabled with `"agentGuidance": false` in `turbo.json`; this file is maintained by hand.

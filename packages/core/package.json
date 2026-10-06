@@ -1,0 +1,32 @@
+{
+    "name": "@mcp-infer/core",
+    "version": "0.0.0",
+    "description": "Infer MCP tool schemas from TypeScript types and JSDoc",
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Emilthelucky/mcp-infer.git",
+        "directory": "packages/core"
+    },
+    "scripts": {
+        "build": "tsc",
+        "typecheck": "tsc --noEmit",
+        "test": "vitest run"
+    },
+    "peerDependencies": {
+        "typescript": ">=5.0"
+    },
+    "engines": {
+        "node": ">=20"
+    }
+}

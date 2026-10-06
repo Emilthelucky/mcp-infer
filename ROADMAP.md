@@ -10,17 +10,17 @@ This document is the plan from prototype to 1.0. Each phase ends with a tagged r
 
 mcp-infer is not another MCP framework. It is the inference layer that frameworks and plain SDK users can share.
 
-| | mcp-infer (goal) | xmcp | mcp-gen | typia |
-| --- | --- | --- | --- | --- |
-| Works with the official SDK directly | Yes | No, xmcp only | Own HTTP server | Yes, with its compiler |
-| Bundler | Any (unplugin) | Rspack only | None | `ttsc` compiler |
-| Input schema from types | Yes | Yes (`experimental`) | Yes | Yes |
-| Output schema from return type | Yes | No | Partial | Yes |
-| JSDoc constraints (`@minimum`, `@format`) | Yes | Yes | No | Yes |
-| Annotations from JSDoc (`@readOnly`, `@destructive`) | Yes | No | No | No |
-| Caching hints (MCP 2026-07-28) | Yes | No | No | No |
-| Plain functions, no classes or decorators | Yes | Yes | Yes | No, class-based |
-| Maintained | Yes | Yes | Inactive | Yes |
+|                                                      | mcp-infer (goal) | xmcp                 | mcp-gen         | typia                  |
+| ---------------------------------------------------- | ---------------- | -------------------- | --------------- | ---------------------- |
+| Works with the official SDK directly                 | Yes              | No, xmcp only        | Own HTTP server | Yes, with its compiler |
+| Bundler                                              | Any (unplugin)   | Rspack only          | None            | `ttsc` compiler        |
+| Input schema from types                              | Yes              | Yes (`experimental`) | Yes             | Yes                    |
+| Output schema from return type                       | Yes              | No                   | Partial         | Yes                    |
+| JSDoc constraints (`@minimum`, `@format`)            | Yes              | Yes                  | No              | Yes                    |
+| Annotations from JSDoc (`@readOnly`, `@destructive`) | Yes              | No                   | No              | No                     |
+| Caching hints (MCP 2026-07-28)                       | Yes              | No                   | No              | No                     |
+| Plain functions, no classes or decorators            | Yes              | Yes                  | Yes             | No, class-based        |
+| Maintained                                           | Yes              | Yes                  | Inactive        | Yes                    |
 
 The table is a claim to be proven: phase 6 turns it into a reproducible comparison.
 
@@ -70,10 +70,11 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** monorepo tooling (pnpm workspaces, Turborepo), release automation (Changesets), cross-platform CI.
 
 **Tasks:**
-- [ ] Convert to a pnpm + Turborepo monorepo with the structure above, starting with `packages/core` and `packages/sdk`
-- [ ] Move the current prototype into `packages/core` without changing behavior; keep all tests green
-- [ ] CI matrix: typecheck, lint, format check, and tests on ubuntu, macos, and windows
-- [ ] Changesets configured; `pnpm changeset` required for user-facing changes
+
+- [x] Convert to a pnpm + Turborepo monorepo with the structure above, starting with `packages/core` (`packages/sdk` arrives in phase 3)
+- [x] Move the current prototype into `packages/core` without changing behavior; keep all tests green
+- [ ] CI matrix: build, typecheck, format check, and tests on ubuntu, macos, and windows (workflow written; green on GitHub pending; lint pending)
+- [x] Changesets configured; `pnpm changeset` required for user-facing changes
 - [ ] `README.md` with the one-sentence pitch, a 30-second example, and status badges
 - [ ] `CONTRIBUTING.md`, `AGENTS.md`, `LICENSE` (MIT), issue and PR templates
 - [ ] `docs/landscape.md`: what xmcp, mcp-gen, typia, mcp-framework, and FastMCP do, verified from their source and docs
@@ -91,18 +92,19 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** TypeScript compiler API in depth (programs, type checker, symbols, flags), JSON Schema 2020-12, designing an intermediate representation.
 
 **Tasks:**
+
 - [ ] Schema IR: a small internal type model, independent of JSON Schema and Zod, so emitters stay simple
 - [ ] One shared `ts.Program` for all tools, with incremental updates (target: < 10 ms per warm rebuild for 50 tools)
 - [ ] Type coverage, each with fixtures and tests:
-  - primitives, string/number/boolean literals, `enum`, literal unions → `enum`, `boolean`
-  - arrays, readonly arrays, tuples
-  - objects, nested objects, interfaces, type aliases, imported and re-exported types, `Pick`/`Omit`/`Partial`
-  - optional vs nullable vs `undefined`
-  - `Record<string, T>` and index signatures
-  - `Date` → `string` with `format: date-time`
-  - intersections of object types
-  - discriminated unions
-  - recursive types (supported via `$ref`, not rejected)
+    - primitives, string/number/boolean literals, `enum`, literal unions → `enum`, `boolean`
+    - arrays, readonly arrays, tuples
+    - objects, nested objects, interfaces, type aliases, imported and re-exported types, `Pick`/`Omit`/`Partial`
+    - optional vs nullable vs `undefined`
+    - `Record<string, T>` and index signatures
+    - `Date` → `string` with `format: date-time`
+    - intersections of object types
+    - discriminated unions
+    - recursive types (supported via `$ref`, not rejected)
 - [ ] JSDoc: descriptions, `@minimum` `@maximum` `@exclusiveMinimum` `@exclusiveMaximum` `@multipleOf` `@minLength` `@maxLength` `@pattern` `@format` `@minItems` `@maxItems` `@default` `@deprecated` `@example`
 - [ ] Diagnostics: every failure has a code, `file:line:col`, the property path, and a suggested fix
 - [ ] Golden tests: each fixture's expected schema is committed and reviewed
@@ -120,6 +122,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** MCP `structuredContent` and `outputSchema`, Zod 3 vs Zod 4, code generation.
 
 **Tasks:**
+
 - [ ] `@mcp-infer/emit`: IR → JSON Schema 2020-12 (as used by MCP 2025-11-25+) and IR → Zod source (Zod 3 and 4)
 - [ ] Output schema from the return type, including `Promise<T>` unwrapping
 - [ ] Map returned objects to `structuredContent` with a text fallback, following the MCP tools spec
@@ -138,6 +141,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** MCP TypeScript SDK v2 internals (`registerTool`, `fromJsonSchema`, transports, era negotiation).
 
 **Tasks:**
+
 - [ ] Build-time manifest `.mcp/tools.json` (name, description, input/output schema, annotations, cache hints, source location)
 - [ ] `@mcp-infer/sdk`: `registerTools(server, manifest, handlers)` with runtime validation through the SDK's own path; no TypeScript at runtime
 - [ ] File convention (`tools/*.ts`) and explicit mode (pick exported functions) both supported
@@ -157,6 +161,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** bundler plugin APIs (unplugin), file watching, CLI design.
 
 **Tasks:**
+
 - [ ] `@mcp-infer/cli`: `build`, `dev` (watch + incremental), `check` (CI mode), `inspect` (print the manifest)
 - [ ] `@mcp-infer/unplugin`: Vite, esbuild, Rollup, Rspack, webpack; regenerate the manifest on type changes, including type-only imports
 - [ ] Clear error overlay in dev; nonzero exit in CI
@@ -174,6 +179,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** the MCP 2026-07-28 revision (caching, annotations, `resultType`), and the official conformance suite.
 
 **Tasks:**
+
 - [ ] Annotations from JSDoc: `@readOnly`, `@destructive`, `@idempotent`, `@openWorld` → `readOnlyHint`, `destructiveHint`, ...
 - [ ] Caching hints: `@cache 1h public` → `ttlMs`, `cacheScope`, plus project defaults for `tools/list`
 - [ ] Prompts and resources inference with the same conventions
@@ -193,6 +199,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** benchmarking methodology, fair comparisons.
 
 **Tasks:**
+
 - [ ] `bench/`: inference time (cold, warm, after a shared-type edit) for 1, 10, 50, 200 tools on all three OSes
 - [ ] Comparison fixtures: the same tool set implemented with mcp-infer, xmcp (`inferToolSchemas`), mcp-gen, typia, and hand-written Zod; compare type coverage, generated schema size (tokens), build time, and setup lines
 - [ ] `bench/RESULTS.md` generated by script, with machine and version details
@@ -211,6 +218,7 @@ Each phase lists what you learn, what to build, how "done" is measured, and the 
 **Learn:** technical writing, developer experience.
 
 **Tasks:**
+
 - [ ] Docs site: quickstart, concepts, type coverage table, JSDoc reference, diagnostics reference, recipes
 - [ ] Migration guides: from hand-written Zod, from the raw SDK, from xmcp
 - [ ] `npx create-mcp-infer` starter

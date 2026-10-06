@@ -4,7 +4,9 @@ Infer MCP tool input schemas from TypeScript types and JSDoc, without a schema l
 
 ```ts
 /** Greet the user */
-export default async function greet({ name }: {
+export default async function greet({
+    name
+}: {
     /** The name of the user to greet */
     name: string;
 }) {
@@ -13,7 +15,7 @@ export default async function greet({ name }: {
 ```
 
 ```ts
-import { inferTool } from 'mcp-infer';
+import { inferTool } from '@mcp-infer/core';
 
 inferTool('src/tools/greet.ts');
 // {
@@ -35,25 +37,27 @@ server.registerTool(name, { description, inputSchema: fromJsonSchema(inputSchema
 
 ## Supported types
 
-| TypeScript                | JSON Schema                                     |
-| ------------------------- | ----------------------------------------------- |
-| `string`, `number`, `boolean` | `{ type }`                                  |
-| `'a' \| 'b'`              | `{ enum: ['a', 'b'] }`                          |
-| `T[]`                     | `{ type: 'array', items }`                      |
-| `{ ... }`                 | `{ type: 'object', properties, required }`      |
-| `x?: T`                   | omitted from `required`                         |
-| other unions              | `{ anyOf }`                                     |
+| TypeScript                    | JSON Schema                                |
+| ----------------------------- | ------------------------------------------ |
+| `string`, `number`, `boolean` | `{ type }`                                 |
+| `'a' \| 'b'`                  | `{ enum: ['a', 'b'] }`                     |
+| `T[]`                         | `{ type: 'array', items }`                 |
+| `{ ... }`                     | `{ type: 'object', properties, required }` |
+| `x?: T`                       | omitted from `required`                    |
+| other unions                  | `{ anyOf }`                                |
 
 Anything else throws an `InferError` with code `UNSUPPORTED_TYPE`.
 
 ## Examples
 
 ```bash
-npm run example:client
+pnpm install
+pnpm build
+pnpm --filter @mcp-infer/example-basic client
 ```
 
-Starts [`examples/server.ts`](examples/server.ts), which serves every file in [`examples/tools`](examples/tools) as a tool, and sends it one valid and two invalid calls.
+Starts [`examples/basic/server.ts`](examples/basic/server.ts), which serves every file in [`examples/basic/tools`](examples/basic/tools) as a tool, and sends it one valid and two invalid calls.
 
 ## Status
 
-Early prototype.
+Early prototype. See [ROADMAP.md](ROADMAP.md) for the plan to 1.0.
