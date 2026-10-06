@@ -7,6 +7,18 @@ updates:
       groups:
           dev-dependencies:
               dependency-type: development
+              update-types: [minor, patch]
+      ignore:
+          # Major upgrades of the compiler and test stack need a deliberate migration.
+          - dependency-name: typescript
+            update-types: [version-update:semver-major]
+          - dependency-name: vitest
+            update-types: [version-update:semver-major]
+          - dependency-name: '@changesets/cli'
+            update-types: [version-update:semver-major]
+          # Types follow the Node version we target (see .nvmrc).
+          - dependency-name: '@types/node'
+            update-types: [version-update:semver-major]
     - package-ecosystem: github-actions
       directory: /
       schedule:
