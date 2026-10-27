@@ -9,6 +9,6 @@
     },
     "dependencies": {
         "@mcp-infer/core": "workspace:*",
-        "@modelcontextprotocol/server": "^2.3.0"
+        "@modelcontextprotocol/server": "^2.4.0"
     }
 }
